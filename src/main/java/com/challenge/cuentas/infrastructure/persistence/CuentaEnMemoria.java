@@ -2,13 +2,14 @@ package com.challenge.cuentas.infrastructure.persistence;
 
 import com.challenge.cuentas.application.ports.output.CuentaRepository;
 import com.challenge.cuentas.domain.model.Cuenta;
+import com.challenge.cuentas.domain.model.Cuenta.Estado;
 import com.challenge.cuentas.domain.model.NumeroCuenta;
-import org.springframework.stereotype.Repository;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
+
 
 /**
  * Adapter de salida: datos en memoria. Implementa el puerto del repositorio.
@@ -37,5 +38,13 @@ public class CuentaEnMemoria implements CuentaRepository {
         return CUENTAS.stream()
                 .filter(c -> c.numero().valor().equals(numero.valor()))
                 .findFirst();
+    }
+
+    @Override
+    public List<Cuenta> buscarPorEstado(Estado estado) {
+        // TODO Auto-generated method stub
+        return CUENTAS.stream()
+            .filter(c -> c.estado() == estado)
+            .toList();
     }
 }
